@@ -6,7 +6,7 @@
  * @author Alen Kalac
  *
  */
-public class main {
+public class mainEntry {
 
 	/**
 	 * @param args
