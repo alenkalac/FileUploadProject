@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,6 +6,8 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Vector;
 
 @SuppressWarnings("serial")
 public class ServerImpl extends UnicastRemoteObject implements FileUpload {
@@ -19,6 +20,7 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 		init();
 		
 		bind();
+		
 	}
 	
 	private void bind() {
@@ -51,6 +53,7 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	public static void main(String[] args) {
 		try {
 			new ServerImpl();
+			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -66,5 +69,23 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ArrayList<String> getFileList() {
+		return getFiles("Files");
+	}
+	
+	private ArrayList<String> getFiles(String folder) {
+		ArrayList<String> allFiles = new ArrayList<String>();
+		File f = new File(folder);
+		File[] files = f.listFiles(); 
+		for(File file : files) {
+			if(file.isDirectory())
+				allFiles.addAll(getFiles(folder + "/" + file.getName().toString()));
+			else
+				allFiles.add(folder + "/" + file.getName());
+		}
+		return allFiles;
 	}
 }
