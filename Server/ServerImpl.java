@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,7 +8,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Vector;
 
 @SuppressWarnings("serial")
 public class ServerImpl extends UnicastRemoteObject implements FileUpload {
@@ -60,13 +60,14 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	}
 
 	@Override
-	public void sendFileBytes(String filename, byte[] bytes) throws RemoteException {
+	public void sendFile(String filename, byte[] fileData) throws RemoteException {
 		try {
-			FileOutputStream stream = new FileOutputStream("Files/" + filename);
-			stream.write(bytes);
-			stream.close();
+			FileOutputStream fos = new FileOutputStream(filename);
+			fos.write(fileData);
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
