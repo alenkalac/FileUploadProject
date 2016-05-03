@@ -21,15 +21,7 @@ public class NewDirAction implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		// get a file name
 		String dirname = JOptionPane.showInputDialog("Enter Directory Name");
-		String path = c.client.getSelectedTreePath();
-
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) c.client
-				.getTree().getLastSelectedPathComponent();
-		if (!node.getAllowsChildren()) {
-			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node
-					.getParent();
-			path = StringUtils.formatToPath(parent);
-		}
+		String path = c.client.getFolderPath();
 
 		if (c.model.createDirectory(dirname, path))
 			c.refreshTree();

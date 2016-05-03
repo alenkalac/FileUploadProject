@@ -8,13 +8,13 @@ import View.RMIClient;
 
 public class _MainClient {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
 			RMIClient client = new RMIClient();
 			Model model = new Model();
 			
 			Controller controller = new Controller(client, model);
-			
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

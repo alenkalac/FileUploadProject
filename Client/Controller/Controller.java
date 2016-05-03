@@ -10,6 +10,7 @@ import javax.swing.tree.TreePath;
 
 import Controller.Events.NewDirAction;
 import Controller.Events.NewFileAction;
+import Controller.Events.UploadFileAction;
 import Model.Model;
 import View.RMIClient;
 import utils.StringUtils;
@@ -24,8 +25,8 @@ public class Controller {
 		
 		this.refreshTree();
 		this.client.addNewFileActionListener(new NewFileAction(this));
-		this.client.addNewFolderActionListener(new NewDirAction());
-		//this.client.addUploadFileActionListener(new UploadFileAction());
+		this.client.addNewFolderActionListener(new NewDirAction(this));
+		this.client.addUploadFileActionListener(new UploadFileAction(this));
 	}
 	
 	public void refreshTree() {

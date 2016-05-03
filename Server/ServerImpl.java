@@ -65,16 +65,18 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	}
 
 	@Override
-	public void sendFile(String filename, byte[] fileData) throws RemoteException {
+	public boolean sendFile(byte[] fileData, String filename, String path) throws RemoteException {
 		try {
-			FileOutputStream fos = new FileOutputStream(filename);
+			FileOutputStream fos = new FileOutputStream(path + "/" + filename);
 			fos.write(fileData);
 			fos.close();
+			return true;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	@Override

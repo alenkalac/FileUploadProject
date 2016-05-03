@@ -17,6 +17,15 @@ public class Model {
 		this.server = (FileUpload) Naming.lookup("rmi://" + Config.host + "/" + Config.service);
 	}
 	
+	public boolean uploadFile(byte[] byteArray, String filename, String path) {
+		try {
+			return server.sendFile(byteArray, filename, path);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public boolean createFile(String filename, String path) {
 		try {
 			return server.createFile(filename, path);

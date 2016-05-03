@@ -153,4 +153,15 @@ public class RMIClient extends JFrame {
 		return StringUtils.formatToPath(this.jt.getSelectionPath().toString());	
 	}
 	
+	public String getFolderPath() {
+		String path = this.getSelectedTreePath();
+
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getTree().getLastSelectedPathComponent();
+		if (!node.getAllowsChildren()) {
+			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+			path = StringUtils.formatToPath(parent);
+		}
+		return path;
+	}
+	
 }
