@@ -1,6 +1,7 @@
 
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -13,8 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 @SuppressWarnings("serial")
@@ -22,6 +21,9 @@ public class RMIClient extends JFrame {
 	
 	private JSplitPane jsp = new JSplitPane();
 	private FileUpload server;
+	private JTree jt;
+	
+	
 	HashMap<String, DefaultMutableTreeNode> fileStructure;
 	
 	public RMIClient() throws MalformedURLException, RemoteException, NotBoundException {
@@ -69,8 +71,7 @@ public class RMIClient extends JFrame {
 		}
 		
 		
-		JTree jt = new JTree(troot);
-		jt.addMouseListener(new MouseClickEvent(jt));
+		jt = new JTree(troot);
 		jsp.setLeftComponent(jt);
 	}
 	
@@ -83,16 +84,13 @@ public class RMIClient extends JFrame {
 		jsp.setRightComponent(rightPanel);
 	}
 	
-	public static void main(String[] args) {
-		
-		try {
-			new RMIClient();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			e.printStackTrace();
-		}
+	public JTree getTree() {
+		return this.jt;
 	}
+	
+	public void addTreeDBLClick(MouseAdapter event) {
+		this.jt.addMouseListener(event);
+	}
+	
+	
 }

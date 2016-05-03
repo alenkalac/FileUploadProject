@@ -1,7 +1,4 @@
 
-import Config;
-import FileUpload;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
