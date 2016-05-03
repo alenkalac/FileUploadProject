@@ -1,5 +1,10 @@
 package utils;
 
+import java.util.Arrays;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+
 public class StringUtils {
 	public static String join(Object[] arr) {
 		
@@ -21,5 +26,10 @@ public class StringUtils {
 		data = data.replace(", ", "/");
 		
 		return data;
+	}
+	
+	public static String formatToPath(DefaultMutableTreeNode node) {
+		String data = Arrays.toString(node.getPath());
+		return formatToPath(data);
 	}
 }
