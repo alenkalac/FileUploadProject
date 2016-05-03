@@ -137,25 +137,47 @@ public class RMIClient extends JFrame {
 		this.jt.addMouseListener(event);
 	}
 	
+	/**
+	 * 
+	 * @param event
+	 */
 	public void addNewFileActionListener(ActionListener event) {
 		this.newFile.addActionListener(event);
 	}
 	
+	/**
+	 * 
+	 * @param event
+	 */
 	public void addNewFolderActionListener(ActionListener event) {
 		this.newFolder.addActionListener(event);
 	}
 	
+	/**
+	 * 
+	 * @param event
+	 */
 	public void addUploadFileActionListener(ActionListener event) {
 		this.uploadFile.addActionListener(event);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getSelectedTreePath() {
+		//if(this.getSelectedTreePath() == null) return "Files";
 		return StringUtils.formatToPath(this.jt.getSelectionPath().toString());	
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getFolderPath() {
 		String path = this.getSelectedTreePath();
 
+		
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getTree().getLastSelectedPathComponent();
 		if (!node.getAllowsChildren()) {
 			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();

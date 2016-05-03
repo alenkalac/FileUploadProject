@@ -1,9 +1,7 @@
 package utils;
 
 import java.util.Arrays;
-
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 public class StringUtils {
 	public static String join(Object[] arr) {
