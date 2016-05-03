@@ -1,24 +1,29 @@
+package View;
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JTree;
+
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
+
+import java.rmi.*;
+import java.util.*;
+
+import javax.swing.*;
+
+import fileio.FileObject;
+import utils.StringUtils;
 
 @SuppressWarnings("serial")
 public class RMIClient extends JFrame {
 
 	private JSplitPane jsp = new JSplitPane();
-	private FileUpload server;
 	private JTree jt;
+	private JButton newFile;
+	private JButton newFolder;
+	private JButton uploadFile;
 
 	private HashMap<String, DefaultMutableTreeNode> fileStructure;
 
@@ -30,16 +35,14 @@ public class RMIClient extends JFrame {
 	 * @throws NotBoundException
 	 */
 	public RMIClient() throws MalformedURLException, RemoteException, NotBoundException {
-		server = (FileUpload) Naming.lookup("rmi://" + Config.host + "/"
-				+ Config.service);
 		init(this);
 	}
 
 	/**
-	 * Initializes the GUI and displays a window
+	 * Initialises the GUI and displays a window
 	 * 
 	 * @param frame
-	 *            The JFrame instance to initialize
+	 *            The JFrame instance to initialise
 	 * @throws RemoteException
 	 */
 	private void init(JFrame frame) throws RemoteException {
@@ -53,7 +56,6 @@ public class RMIClient extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().add(jsp, BorderLayout.CENTER);
 		frame.setVisible(true);
-		configureTree(frame);
 		configureFileSystem(frame);
 	}
 
@@ -62,23 +64,25 @@ public class RMIClient extends JFrame {
 	 * 
 	 * @param frame 
 	 * 			The frame to add the JTree to
-	 * @throws RemoteException
 	 */
-	private void configureTree(JFrame frame) throws RemoteException {
-
-		ArrayList<String> files = server.getFileList();
+	public void configureTree(ArrayList<FileObject> files){
+		
+		fileStructure = new HashMap<String, DefaultMutableTreeNode>();
+		
 		DefaultMutableTreeNode troot = new DefaultMutableTreeNode("Files");
+		DefaultTreeModel model = new DefaultTreeModel(troot, true);
+		
 		fileStructure.put("Files", troot);
 
-		for (String file : files) {
-			String[] data = file.split("/");
+		for (FileObject file : files) {
+			String[] data = file.getPath().split("/");
 			DefaultMutableTreeNode parent = null;
 			for (String d : data) {
 
 				if (fileStructure.containsKey(d)) {
 					parent = fileStructure.get(d);
 				} else {
-					DefaultMutableTreeNode node = new DefaultMutableTreeNode(d);
+					DefaultMutableTreeNode node = new DefaultMutableTreeNode(d, file.isDir());
 					if (parent != null)
 						parent.add(node);
 					parent = node;
@@ -88,6 +92,9 @@ public class RMIClient extends JFrame {
 		}
 
 		jt = new JTree(troot);
+		jt.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		jt.setExpandsSelectedPaths(true);
+		jt.setModel(model);
 		jsp.setLeftComponent(jt);
 	}
 
@@ -100,8 +107,12 @@ public class RMIClient extends JFrame {
 	private void configureFileSystem(JFrame frame) {
 
 		JPanel rightPanel = new JPanel();
-		JButton b = new JButton("Upload");
-		rightPanel.add(b);
+		this.newFile = new JButton("New File");
+		this.newFolder = new JButton("New Folder");
+		this.uploadFile = new JButton("Upload a file");
+		rightPanel.add(newFile);
+		rightPanel.add(newFolder);
+		rightPanel.add(uploadFile);
 
 		jsp.setRightComponent(rightPanel);
 	}
@@ -125,4 +136,32 @@ public class RMIClient extends JFrame {
 	public void addTreeDBLClick(MouseAdapter event) {
 		this.jt.addMouseListener(event);
 	}
+	
+	public void addNewFileActionListener(ActionListener event) {
+		this.newFile.addActionListener(event);
+	}
+	
+	public void addNewFolderActionListener(ActionListener event) {
+		this.newFolder.addActionListener(event);
+	}
+	
+	public void addUploadFileActionListener(ActionListener event) {
+		this.uploadFile.addActionListener(event);
+	}
+	
+	public String getSelectedTreePath() {
+		return StringUtils.formatToPath(this.jt.getSelectionPath().toString());	
+	}
+	
+	public String getFolderPath() {
+		String path = this.getSelectedTreePath();
+
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getTree().getLastSelectedPathComponent();
+		if (!node.getAllowsChildren()) {
+			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+			path = StringUtils.formatToPath(parent);
+		}
+		return path;
+	}
+	
 }

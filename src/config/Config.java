@@ -1,3 +1,4 @@
+package config;
 
 public class Config {
 	public static String host = "localhost:7500";

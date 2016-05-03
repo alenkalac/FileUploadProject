@@ -10,6 +10,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import config.Config;
+import fileio.FileObject;
+import fileio.FileUpload;
+
 @SuppressWarnings("serial")
 public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	
@@ -61,33 +65,56 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	}
 
 	@Override
-	public void sendFile(String filename, byte[] fileData) throws RemoteException {
+	public boolean sendFile(byte[] fileData, String filename, String path) throws RemoteException {
 		try {
-			FileOutputStream fos = new FileOutputStream(filename);
+			FileOutputStream fos = new FileOutputStream(path + "/" + filename);
 			fos.write(fileData);
 			fos.close();
+			return true;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	@Override
-	public ArrayList<String> getFileList() {
+	public ArrayList<FileObject> getFileList() {
 		return getFiles("Files");
 	}
 	
-	private ArrayList<String> getFiles(String folder) {
-		ArrayList<String> allFiles = new ArrayList<String>();
+	private ArrayList<FileObject> getFiles(String folder) {
+		ArrayList<FileObject> allFiles = new ArrayList<FileObject>();
 		File f = new File(folder);
 		File[] files = f.listFiles(); 
 		for(File file : files) {
-			if(file.isDirectory())
+			if(file.isDirectory()) {
+				FileObject fo = new FileObject(file.getName(), true, folder);
+				allFiles.add(fo);
 				allFiles.addAll(getFiles(folder + "/" + file.getName().toString()));
-			else
-				allFiles.add(folder + "/" + file.getName());
+			}
+			else {
+				FileObject fo = new FileObject(file.getName(), false, folder);
+				allFiles.add(fo);
+			}
 		}
 		return allFiles;
+	}
+
+	@Override
+	public boolean createDirectory(String name, String path) throws RemoteException {
+		File f = new File(path + "/" + name);
+		return f.mkdirs();
+	}
+
+	@Override
+	public boolean createFile(String name, String path) throws RemoteException {
+		File f = new File(path + "/" + name);
+		try {
+			return f.createNewFile();
+		} catch (IOException e) {
+			return false;
+		}
 	}
 }
