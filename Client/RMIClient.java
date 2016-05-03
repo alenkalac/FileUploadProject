@@ -1,3 +1,5 @@
+
+
 import java.awt.BorderLayout;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -11,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 @SuppressWarnings("serial")
@@ -36,9 +40,6 @@ public class RMIClient extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().add(jsp, BorderLayout.CENTER);
 		frame.setVisible(true);
-		
-		
-		
 		configureTree(frame);
 		configureFileSystem(frame);
 	}
@@ -69,6 +70,7 @@ public class RMIClient extends JFrame {
 		
 		
 		JTree jt = new JTree(troot);
+		jt.addMouseListener(new MouseClickEvent(jt));
 		jsp.setLeftComponent(jt);
 	}
 	
