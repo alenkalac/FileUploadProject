@@ -34,9 +34,10 @@ public class TreeAction extends MouseAdapter {
 							String fileName = StringUtils.getFileNameFromPath(filePath);
 							String fileExt = StringUtils.getFileExtension(filePath);
 							File f = File.createTempFile(fileName, fileExt);
+							f.deleteOnExit();
 							FileOutputStream fos = new FileOutputStream(f);
 							fos.write(c.model.downloadFile(filePath));
-							Component comp = new OpenNewWindow().getWindow(fileName, filePath, fileExt);
+							Component comp = new OpenNewWindow().getWindow(fileName, filePath, fileExt, f);
 							if(comp != null)
 								c.client.addWindowToDesktop(comp);
 							
