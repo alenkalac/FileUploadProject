@@ -47,8 +47,9 @@ public class Controller {
 				TreePath path = client.getTree().getPathForLocation(e.getX(), e.getY());
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
 				if(path != null) {
-					System.out.println(path.toString());
-					RightClickMenu rcm = new RightClickMenu(c);
+					String fullPath = StringUtils.formatToPath(path.toString());
+					System.out.println(fullPath);
+					RightClickMenu rcm = new RightClickMenu(c, fullPath);
 					rcm.show(e.getComponent(), e.getX(), e.getY());
 				}
 			}

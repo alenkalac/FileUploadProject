@@ -13,9 +13,15 @@ import Controller.Controller;
 public class UploadFileAction implements ActionListener {
 
 	private Controller c;
+	private String path = null;
 	
 	public UploadFileAction(Controller c) {
 		this.c = c;
+	}
+	
+	public UploadFileAction(Controller c, String path) {
+		this.c = c;
+		this.path = path;
 	}
 	
 	@Override
@@ -34,8 +40,9 @@ public class UploadFileAction implements ActionListener {
 				fio.read(byteArray);
 				
 				if(byteArray == null) return;
-				
-				if(c.model.uploadFile(byteArray, f.getName(), c.client.getFolderPath()))
+				if(path == null)
+					path =  c.client.getFolderPath();
+				if(c.model.uploadFile(byteArray, f.getName(), path))
 					c.refreshTree();
 			} catch (IOException e1) {
 				e1.printStackTrace();

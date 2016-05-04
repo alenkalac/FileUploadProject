@@ -9,5 +9,6 @@ public interface FileUpload extends Remote {
 	public ArrayList<FileObject> getFileList() throws RemoteException;
 	public boolean createDirectory(String name, String path) throws RemoteException;
 	public boolean createFile(String name, String path) throws RemoteException;
+	public boolean deleteFile(String path) throws RemoteException;
 	
 }

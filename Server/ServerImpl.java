@@ -117,4 +117,10 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 			return false;
 		}
 	}
+
+	@Override
+	public boolean deleteFile(String path) throws RemoteException {
+		File f = new File(path);
+		return f.delete();
+	}
 }

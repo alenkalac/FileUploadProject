@@ -138,45 +138,47 @@ public class RMIClient extends JFrame {
 	}
 	
 	/**
-	 * 
-	 * @param event
+	 * Add a new Listener to the button
+	 * @param ActionListener event
 	 */
 	public void addNewFileActionListener(ActionListener event) {
 		this.newFile.addActionListener(event);
 	}
 	
 	/**
-	 * 
-	 * @param event
+	 * Add a new listener to the button
+	 * @param ActionListener event
 	 */
 	public void addNewFolderActionListener(ActionListener event) {
 		this.newFolder.addActionListener(event);
 	}
 	
 	/**
-	 * 
-	 * @param event
+	 * Add a new listener to the button
+	 * @param ActionListener event
 	 */
 	public void addUploadFileActionListener(ActionListener event) {
 		this.uploadFile.addActionListener(event);
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Returns a path of the selected item
+	 * @return String
 	 */
 	public String getSelectedTreePath() {
-		//if(this.getSelectedTreePath() == null) return "Files";
+		if(this.jt.getSelectionPath() == null) return "Files";
+		else
 		return StringUtils.formatToPath(this.jt.getSelectionPath().toString());	
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return the closest folder parent
+	 * @return String
+	 * 			Path of the closest parent folder
 	 */
 	public String getFolderPath() {
 		String path = this.getSelectedTreePath();
-
+		if(path.equals("Files")) return path;
 		
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getTree().getLastSelectedPathComponent();
 		if (!node.getAllowsChildren()) {
