@@ -2,6 +2,7 @@ package fileio;
 import java.io.Serializable;
 
 
+@SuppressWarnings("serial")
 public class FileObject implements Serializable{
 	
 	private boolean isDir = false;

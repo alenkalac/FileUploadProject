@@ -30,4 +30,12 @@ public class StringUtils {
 		String data = Arrays.toString(node.getPath());
 		return formatToPath(data);
 	}
+	
+	public static String getFileNameFromPath(String path) {
+		return path.substring(path.lastIndexOf("/")+1);
+	}
+	
+	public static String getFileExtension(String filename) {
+		return filename.substring(filename.lastIndexOf("."));
+	}
 }

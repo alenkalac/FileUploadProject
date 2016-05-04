@@ -14,6 +14,7 @@ public class RightClickMenu extends JPopupMenu{
 	private JMenuItem deleteFile;
 	private JMenuItem shareFile;
 	private JMenuItem newFile;
+	private JMenuItem refreshTree;
 	private JMenuItem newFolder;
 	
 	private Controller c;
@@ -26,16 +27,19 @@ public class RightClickMenu extends JPopupMenu{
 		
 		newFile = new JMenuItem("New File");
 		newFolder = new JMenuItem("New Folder");
+		refreshTree = new JMenuItem("Refresh");
 		deleteFile = new JMenuItem("Delete");
 		shareFile = new JMenuItem("Share");
 		
 		
 		newFile.addActionListener(new NewFileAction(c, path));
 		newFolder.addActionListener(new NewDirAction(c, path));
+		refreshTree.addActionListener(new RefreshTreeAction(c));
 		deleteFile.addActionListener(new DeleteFileAction(c, path));
 		
 		this.add(newFile);
 		this.add(newFolder);
+		this.add(refreshTree);
 		this.add(deleteFile);
 		this.addSeparator();
 		this.add(shareFile);

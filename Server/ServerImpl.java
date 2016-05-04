@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -122,5 +123,24 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	public boolean deleteFile(String path) throws RemoteException {
 		File f = new File(path);
 		return f.delete();
+	}
+
+	@SuppressWarnings("resource")
+	@Override
+	public byte[] downloadFile(String path) throws RemoteException {
+		File f = new File(path);
+		FileInputStream fio;
+		try {
+			fio = new FileInputStream(f);
+			byte[] buffer = new byte[fio.available()];
+			fio.read(buffer);
+			return buffer;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

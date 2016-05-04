@@ -61,4 +61,13 @@ public class Model {
 		}
 		return false;
 	}
+	
+	public byte[] downloadFile(String path) {
+		try {
+			return server.downloadFile(path);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

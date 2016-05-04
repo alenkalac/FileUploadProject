@@ -31,28 +31,6 @@ public class Controller {
 	
 	public void refreshTree() {
 		this.client.configureTree(model.getFileList());
-		this.client.addTreeDBLClick(new TreeAction());
-	}
-	
-	public class TreeAction extends MouseAdapter {
-		public void mouseClicked(MouseEvent e) {
-			if(e.getButton() == MouseEvent.BUTTON1) {
-				if(e.getClickCount() == 2) {
-					TreePath path = client.getTree().getPathForLocation(e.getX(), e.getY());
-					if(path != null)
-						System.out.println(StringUtils.formatToPath(path.toString())) ;
-				}
-			}
-			else if(e.getButton() == MouseEvent.BUTTON3) {
-				TreePath path = client.getTree().getPathForLocation(e.getX(), e.getY());
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-				if(path != null) {
-					String fullPath = StringUtils.formatToPath(path.toString());
-					System.out.println(fullPath);
-					RightClickMenu rcm = new RightClickMenu(c, fullPath);
-					rcm.show(e.getComponent(), e.getX(), e.getY());
-				}
-			}
-		}
+		this.client.addTreeDBLClick(new TreeAction(this));
 	}
 }
