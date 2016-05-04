@@ -1,7 +1,9 @@
 package View;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.beans.PropertyVetoException;
 import java.net.MalformedURLException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -13,6 +15,7 @@ import java.util.*;
 
 import javax.swing.*;
 
+import View.InternalWindows.PlainTextWindow;
 import fileio.FileObject;
 import utils.StringUtils;
 
@@ -24,6 +27,7 @@ public class RMIClient extends JFrame {
 	private JButton newFile;
 	private JButton newFolder;
 	private JButton uploadFile;
+	private CustomDesktop desktop;
 
 	private HashMap<String, DefaultMutableTreeNode> fileStructure;
 
@@ -47,6 +51,8 @@ public class RMIClient extends JFrame {
 	 */
 	private void init(JFrame frame) throws RemoteException {
 
+		jsp.setResizeWeight(0.2);
+		
 		fileStructure = new HashMap<String, DefaultMutableTreeNode>();
 
 		frame.setTitle("File Manager Client");
@@ -56,7 +62,7 @@ public class RMIClient extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().add(jsp, BorderLayout.CENTER);
 		frame.setVisible(true);
-		configureFileSystem(frame);
+		configureCenterArea(frame);
 	}
 
 	/**
@@ -104,17 +110,26 @@ public class RMIClient extends JFrame {
 	 * @param frame
 	 * 			The frame to add the file system to
 	 */
-	private void configureFileSystem(JFrame frame) {
+	private void configureCenterArea(JFrame frame) {
 
 		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BorderLayout());
+		
+		JPanel buttonPanel = new JPanel();
 		this.newFile = new JButton("New File");
 		this.newFolder = new JButton("New Folder");
 		this.uploadFile = new JButton("Upload a file");
-		rightPanel.add(newFile);
-		rightPanel.add(newFolder);
-		rightPanel.add(uploadFile);
-
+		buttonPanel.add(newFile);
+		buttonPanel.add(newFolder);
+		buttonPanel.add(uploadFile);
+		
+		rightPanel.add(buttonPanel, BorderLayout.NORTH);
+		
+		desktop = new CustomDesktop();
+		
+		rightPanel.add(desktop, BorderLayout.CENTER);
 		jsp.setRightComponent(rightPanel);
+		desktop.repaint();
 	}
 
 	/**
@@ -137,31 +152,59 @@ public class RMIClient extends JFrame {
 		this.jt.addMouseListener(event);
 	}
 	
+	/**
+	 * Add a new Listener to the button
+	 * @param ActionListener event
+	 */
 	public void addNewFileActionListener(ActionListener event) {
 		this.newFile.addActionListener(event);
 	}
 	
+	/**
+	 * Add a new listener to the button
+	 * @param ActionListener event
+	 */
 	public void addNewFolderActionListener(ActionListener event) {
 		this.newFolder.addActionListener(event);
 	}
 	
+	/**
+	 * Add a new listener to the button
+	 * @param ActionListener event
+	 */
 	public void addUploadFileActionListener(ActionListener event) {
 		this.uploadFile.addActionListener(event);
 	}
 	
+	/**
+	 * Returns a path of the selected item
+	 * @return String
+	 */
 	public String getSelectedTreePath() {
+		if(this.jt.getSelectionPath() == null) return "Files";
+		else
 		return StringUtils.formatToPath(this.jt.getSelectionPath().toString());	
 	}
 	
+	/**
+	 * @return the closest folder parent
+	 * @return String
+	 * 			Path of the closest parent folder
+	 */
 	public String getFolderPath() {
 		String path = this.getSelectedTreePath();
-
+		if(path.equals("Files")) return path;
+		
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getTree().getLastSelectedPathComponent();
 		if (!node.getAllowsChildren()) {
 			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
 			path = StringUtils.formatToPath(parent);
 		}
 		return path;
+	}
+	
+	public void addWindowToDesktop(Component window) {
+		this.desktop.add(window);
 	}
 	
 }

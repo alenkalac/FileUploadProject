@@ -52,4 +52,22 @@ public class Model {
 		}
 		return null;
 	}
+
+	public boolean deleteFile(String path) {
+		try {
+			return server.deleteFile(path);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public byte[] downloadFile(String path) {
+		try {
+			return server.downloadFile(path);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

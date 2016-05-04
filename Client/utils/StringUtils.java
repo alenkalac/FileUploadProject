@@ -1,9 +1,7 @@
 package utils;
 
 import java.util.Arrays;
-
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 public class StringUtils {
 	public static String join(Object[] arr) {
@@ -31,5 +29,13 @@ public class StringUtils {
 	public static String formatToPath(DefaultMutableTreeNode node) {
 		String data = Arrays.toString(node.getPath());
 		return formatToPath(data);
+	}
+	
+	public static String getFileNameFromPath(String path) {
+		return path.substring(path.lastIndexOf("/")+1);
+	}
+	
+	public static String getFileExtension(String filename) {
+		return filename.substring(filename.lastIndexOf("."));
 	}
 }
