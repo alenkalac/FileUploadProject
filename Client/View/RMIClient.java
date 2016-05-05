@@ -24,11 +24,9 @@ public class RMIClient extends JFrame {
 
 	private JSplitPane jsp = new JSplitPane();
 	private JTree jt;
-	private JButton newFile;
-	private JButton newFolder;
-	private JButton uploadFile;
 	private CustomDesktop desktop;
-
+	private CustomToolBar toolbar;
+	
 	private HashMap<String, DefaultMutableTreeNode> fileStructure;
 
 	/**
@@ -56,7 +54,7 @@ public class RMIClient extends JFrame {
 		fileStructure = new HashMap<String, DefaultMutableTreeNode>();
 
 		frame.setTitle("File Manager Client");
-		frame.setSize(800, 600);
+		frame.setSize(1000, 600);
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
@@ -116,12 +114,12 @@ public class RMIClient extends JFrame {
 		rightPanel.setLayout(new BorderLayout());
 		
 		JPanel buttonPanel = new JPanel();
-		this.newFile = new JButton("New File");
-		this.newFolder = new JButton("New Folder");
-		this.uploadFile = new JButton("Upload a file");
-		buttonPanel.add(newFile);
-		buttonPanel.add(newFolder);
-		buttonPanel.add(uploadFile);
+		buttonPanel.setLayout(new BorderLayout());
+		
+		toolbar = new CustomToolBar();
+		buttonPanel.add(toolbar);
+		
+		
 		
 		rightPanel.add(buttonPanel, BorderLayout.NORTH);
 		
@@ -152,28 +150,8 @@ public class RMIClient extends JFrame {
 		this.jt.addMouseListener(event);
 	}
 	
-	/**
-	 * Add a new Listener to the button
-	 * @param ActionListener event
-	 */
-	public void addNewFileActionListener(ActionListener event) {
-		this.newFile.addActionListener(event);
-	}
-	
-	/**
-	 * Add a new listener to the button
-	 * @param ActionListener event
-	 */
-	public void addNewFolderActionListener(ActionListener event) {
-		this.newFolder.addActionListener(event);
-	}
-	
-	/**
-	 * Add a new listener to the button
-	 * @param ActionListener event
-	 */
-	public void addUploadFileActionListener(ActionListener event) {
-		this.uploadFile.addActionListener(event);
+	public CustomToolBar getToolbar() {
+		return this.toolbar;
 	}
 	
 	/**

@@ -65,7 +65,7 @@ public class PlainTextWindow extends JInternalFrame {
 		this.add(jtb, BorderLayout.NORTH);
 		this.add(jsp, BorderLayout.CENTER);
 
-		this.setBounds(10, 10, 250, 250);
+		this.setBounds(10, 10, 450, 250);
 		this.setVisible(true);
 	}
 

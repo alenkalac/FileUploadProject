@@ -125,7 +125,6 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 		return f.delete();
 	}
 
-	@SuppressWarnings("resource")
 	@Override
 	public byte[] downloadFile(String path) throws RemoteException {
 		File f = new File(path);
@@ -134,9 +133,8 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 			fio = new FileInputStream(f);
 			byte[] buffer = new byte[fio.available()];
 			fio.read(buffer);
+			fio.close();
 			return buffer;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

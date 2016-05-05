@@ -1,17 +1,7 @@
 package Controller;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-
 import Controller.Events.*;
 import Model.Model;
 import View.RMIClient;
-import View.RightClickMenu;
-import utils.StringUtils;
 
 public class Controller {
 	public RMIClient client;
@@ -24,9 +14,9 @@ public class Controller {
 		this.c = this;
 		
 		this.refreshTree();
-		this.client.addNewFileActionListener(new NewFileAction(this));
-		this.client.addNewFolderActionListener(new NewDirAction(this));
-		this.client.addUploadFileActionListener(new UploadFileAction(this));
+		this.client.getToolbar().addNewFileActionListener(new NewFileAction(this));
+		this.client.getToolbar().addNewFolderActionListener(new NewDirAction(this));
+		this.client.getToolbar().addUploadFileActionListener(new UploadFileAction(this));
 	}
 	
 	public void refreshTree() {
