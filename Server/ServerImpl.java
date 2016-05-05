@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
 import config.Config;
 import fileio.FileObject;
 import fileio.FileUpload;
@@ -213,5 +214,13 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 		}
 
 		return null;
+	}
+
+	@Override
+	public boolean renameFile(String path, String newPath) throws RemoteException {
+		File f = new File(path);
+		File newf = new File(newPath);
+		
+		return f.renameTo(newf);
 	}
 }

@@ -1,6 +1,10 @@
 package View;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
 import Controller.Controller;
 import Controller.Events.*;
 
@@ -16,6 +20,7 @@ public class RightClickMenu extends JPopupMenu{
 	private JMenuItem downloadFile;
 	private JMenuItem refreshTree;
 	private JMenuItem newFolder;
+	private JMenuItem renameFile;
 	
 	private Controller c;
 	private String path;
@@ -37,6 +42,7 @@ public class RightClickMenu extends JPopupMenu{
 		refreshTree = new JMenuItem("Refresh");
 		deleteFile = new JMenuItem("Delete");
 		shareFile = new JMenuItem("Share");
+		renameFile = new JMenuItem("Rename");
 		
 		
 		newFile.addActionListener(new NewFileAction(c, path));
@@ -45,10 +51,12 @@ public class RightClickMenu extends JPopupMenu{
 		downloadFile.addActionListener(new DownloadFileAction(c, path));
 		refreshTree.addActionListener(new RefreshTreeAction(c));
 		deleteFile.addActionListener(new DeleteFileAction(c, path));
+		renameFile.addActionListener(new RenameFileAction(c, path));
 		
 		this.add(newFile);
 		this.add(newFolder);
 		this.addSeparator();
+		this.add(renameFile);
 		this.add(uploadFile);
 		this.add(downloadFile);
 		this.add(refreshTree);

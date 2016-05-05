@@ -4,7 +4,9 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.*;
 import java.util.ArrayList;
+
 import javax.swing.JFileChooser;
+
 import config.Config;
 import fileio.*;
 
@@ -158,5 +160,23 @@ public class Model {
 			}
 
 		}
+	}
+	
+	/**
+	 * Renames a file on the server
+	 * @param path
+	 * 			path of the file
+	 * @param newPath
+	 * 			new path of the file
+	 * @return boolean
+	 * 			true if rename is successful
+	 */
+	public boolean renameFile(String path, String newPath) {
+		try {
+			return server.renameFile(path, newPath);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
