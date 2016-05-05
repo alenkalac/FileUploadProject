@@ -6,6 +6,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+
 import config.Config;
 import fileio.FileObject;
 import fileio.FileUpload;
@@ -18,6 +21,8 @@ import fileio.FileUpload;
  */
 @SuppressWarnings("serial")
 public class ServerImpl extends UnicastRemoteObject implements FileUpload {
+	
+	JTextArea jta = new JTextArea();
 
 	/**
 	 * Default Constructor
@@ -25,6 +30,14 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	 */
 	public ServerImpl() throws RemoteException {
 		super();
+		
+		JFrame frame = new JFrame("RMI Server");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jta.setEditable(false);
+		frame.add(jta);
+		frame.setSize(400, 250);
+		frame.setResizable(false);
+		frame.setVisible(true);
 
 		startRMIRegistry();
 
@@ -40,7 +53,7 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	private void bind() {
 		try {
 			Naming.rebind("rmi://" + Config.host + "/" + Config.service, this);
-			System.out.println("FileUpload RMI Server is running...");
+			jta.append("FileUpload RMI Server is running...\n\r");
 		} catch (RemoteException | MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +68,7 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 
 		if (!f.exists()) {
 			f.mkdir();
-			System.out.println("dir made");
+			jta.append("Added Directory Files\n\r");
 		}
 	}
 

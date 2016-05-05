@@ -25,9 +25,9 @@ public class CustomToolBar extends JToolBar implements Runnable{
 		this.newFolder = new JButton("New Folder");
 		this.uploadFile = new JButton("Upload a file");
 		
-		newFile.setIcon(new ImageIcon("res/add_file.png"));
-		newFolder.setIcon(new ImageIcon("res/newfolder.png"));
-		uploadFile.setIcon(new ImageIcon("res/upload.png"));
+		newFile.setIcon(new ImageIcon(getClass().getResource("/res/add_file.png")));
+		newFolder.setIcon(new ImageIcon(getClass().getResource("/res/newfolder.png")));
+		uploadFile.setIcon(new ImageIcon(getClass().getResource("/res/upload.png")));
 		
 		this.time = new JLabel();
 		

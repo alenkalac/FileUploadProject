@@ -42,6 +42,8 @@ public class NewFileAction implements ActionListener{
 		if(filename != null && filename.length() != 0) {
 			if(path == null)
 				path = c.client.getFolderPath();
+			if(!filename.contains("."))
+				filename += ".txt";
 			
 			if(c.model.createFile(filename, path))
 				c.refreshTree();

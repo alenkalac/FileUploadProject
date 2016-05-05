@@ -65,7 +65,7 @@ public class PlainTextWindow extends JInternalFrame {
 		readFile();
 		JToolBar jtb = new JToolBar();
 		saveButton = new JButton();
-		saveButton.setIcon(new ImageIcon("res/save.png"));
+		saveButton.setIcon(new ImageIcon(getClass().getResource("/res/save.png")));
 		saveButton.addActionListener(new ActionListener() {
 
 			@Override

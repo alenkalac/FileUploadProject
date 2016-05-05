@@ -54,7 +54,8 @@ public class ImageWindow extends JInternalFrame {
 	private void readFile() {
 		try {
 			BufferedImage bimg = ImageIO.read(f);
-			this.img.setImage(bimg);
+			if(bimg != null)
+				this.img.setImage(bimg);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

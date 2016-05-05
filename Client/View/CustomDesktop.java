@@ -18,7 +18,7 @@ public class CustomDesktop extends JDesktopPane{
 	 */
 	public CustomDesktop() {
 		super();
-		img = new ImageIcon("res/bg.jpg");
+		img = new ImageIcon(getClass().getResource("/res/bg.jpg"));
 		this.repaint();
 	}
 
