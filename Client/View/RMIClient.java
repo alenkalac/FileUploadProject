@@ -61,8 +61,8 @@ public class RMIClient extends JFrame {
 	/**
 	 * Configures the JTree component and adds all the nodes
 	 * 
-	 * @param frame 
-	 * 			The frame to add the JTree to
+	 * @param files 
+	 * 			The files to add to the tree. 
 	 */
 	public void configureTree(ArrayList<FileObject> files){
 		
@@ -77,10 +77,9 @@ public class RMIClient extends JFrame {
 			String[] data = file.getPath().split("/");
 			DefaultMutableTreeNode parent = null;
 			for (String d : data) {
-
-				if (fileStructure.containsKey(d)) {
+				if (fileStructure.containsKey(d))
 					parent = fileStructure.get(d);
-				} else {
+				else {
 					DefaultMutableTreeNode node = new DefaultMutableTreeNode(d, file.isDir());
 					if (parent != null)
 						parent.add(node);

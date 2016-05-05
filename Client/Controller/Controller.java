@@ -1,4 +1,5 @@
 package Controller;
+
 import Controller.Events.*;
 import Model.Model;
 import View.RMIClient;

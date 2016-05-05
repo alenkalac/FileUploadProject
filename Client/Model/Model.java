@@ -34,12 +34,13 @@ public class Model {
 	/**
 	 * Upload file function
 	 * 
-	 * @param byte[] byteArray Array of bytes that makes up a file
+	 * @param byte[] Array of bytes that makes up a file
 	 * @param String
-	 *            filename File name
+	 *          File name
 	 * @param String
-	 *            path Path of where to upload
-	 * @return boolean True if upload is successful
+	 *         	Path of where to upload
+	 * @return boolean 
+	 * 			True if upload is successful
 	 */
 	public boolean uploadFile(byte[] byteArray, String filename, String path) {
 		try {
@@ -54,9 +55,9 @@ public class Model {
 	 * Create a new file function
 	 * 
 	 * @param String
-	 *            filename File Name
+	 * 				filename File Name
 	 * @param path
-	 *            Path of where to create a file
+	 *				Path of where to create a file
 	 * @return boolean True if file is created successfully
 	 */
 	public boolean createFile(String filename, String path) {
@@ -72,10 +73,11 @@ public class Model {
 	 * Create a new directory function
 	 * 
 	 * @param String
-	 *            dirname Directory name
+	 *				Directory name
 	 * @param String
-	 *            path Path of where to create a directory
-	 * @return boolean True if directory is created successfully
+	 *				Path of where to create a directory
+	 * @return boolean 
+	 *				True if directory is created successfully
 	 */
 	public boolean createDirectory(String dirname, String path) {
 		try {

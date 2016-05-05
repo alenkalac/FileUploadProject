@@ -15,5 +15,4 @@ public interface FileUpload extends Remote {
 	public boolean deleteFile(String path) throws RemoteException;
 	public byte[] downloadFile(String path) throws RemoteException;
 	public boolean renameFile(String path, String newPath) throws RemoteException;
-	
 }

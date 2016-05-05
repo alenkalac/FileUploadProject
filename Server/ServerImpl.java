@@ -31,14 +31,6 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	public ServerImpl() throws RemoteException {
 		super();
 		
-		JFrame frame = new JFrame("RMI Server");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jta.setEditable(false);
-		frame.add(jta);
-		frame.setSize(400, 250);
-		frame.setResizable(false);
-		frame.setVisible(true);
-
 		startRMIRegistry();
 
 		init();
@@ -48,7 +40,7 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	}
 
 	/**
-	 * Binds the server to listen on host and port
+	 * Binds the server to a port
 	 */
 	private void bind() {
 		try {
@@ -63,7 +55,14 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 	 * Initialises few things like setting up for first use
 	 */
 	private void init() {
-		// set up the folder where to save things
+		JFrame frame = new JFrame("RMI Server");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jta.setEditable(false);
+		frame.add(jta);
+		frame.setSize(400, 250);
+		frame.setResizable(false);
+		frame.setVisible(true);
+
 		File f = new File("Files");
 
 		if (!f.exists()) {
@@ -146,8 +145,7 @@ public class ServerImpl extends UnicastRemoteObject implements FileUpload {
 			if (file.isDirectory()) {
 				FileObject fo = new FileObject(file.getName(), true, folder);
 				allFiles.add(fo);
-				allFiles.addAll(getFiles(folder + "/"
-						+ file.getName().toString()));
+				allFiles.addAll(getFiles(folder + "/" + file.getName().toString()));
 			} else {
 				FileObject fo = new FileObject(file.getName(), false, folder);
 				allFiles.add(fo);

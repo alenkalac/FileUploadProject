@@ -50,7 +50,6 @@ public class UploadFileAction implements ActionListener {
 		if(option == JFileChooser.APPROVE_OPTION) {
 			File f = jfc.getSelectedFile();
 			
-			
 			try {
 				FileInputStream fio = new FileInputStream(f);
 				
@@ -67,5 +66,4 @@ public class UploadFileAction implements ActionListener {
 			}
 		}
 	}
-
 }
