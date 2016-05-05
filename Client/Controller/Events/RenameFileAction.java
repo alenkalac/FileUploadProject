@@ -35,7 +35,13 @@ public class RenameFileAction implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String newFilename = JOptionPane.showInputDialog("Enter new File name");
 		if(newFilename != null) {
-			String dirPath = path.substring(0, path.lastIndexOf("/"));
+			String dirPath = "";
+			try{
+				dirPath = path.substring(0, path.lastIndexOf("/"));
+			}catch(StringIndexOutOfBoundsException e1) {
+				JOptionPane.showMessageDialog(null, "Sorry but you cant rename the root folder");
+				return;
+			}
 			String newFilePath = dirPath + "/" + newFilename;
 			//System.out.println(newFilePath);
 			if(c.model.renameFile(path, newFilePath))
