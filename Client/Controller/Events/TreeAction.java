@@ -3,23 +3,37 @@ package Controller.Events;
 import java.awt.Component;
 import java.awt.event.*;
 import java.io.*;
-
 import javax.swing.tree.*;
-
 import utils.StringUtils;
 import Controller.Controller;
 import View.RightClickMenu;
 import View.InternalWindows.OpenNewWindow;
-import View.InternalWindows.PlainTextWindow;
 
+/**
+ * Class that manages clicks on the tree
+ * @author Alen Kalac
+ *
+ */
 public class TreeAction extends MouseAdapter {
 	
 	private Controller c;
 	
+	/**
+	 * Constructor for this class
+	 * @param Controller c
+	 */
 	public TreeAction(Controller c) {
 		this.c = c;
 	}
 	
+	/**
+	 * function that takes care of clicks on the nodes
+	 * 
+	 * if the left mouse button is clicked twice, try to open the file 
+	 * by downloading it to temp storage
+	 * 
+	 * if the right mouse button is clicked, open a popup menu
+	 */
 	public void mouseClicked(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			if (e.getClickCount() == 2) {

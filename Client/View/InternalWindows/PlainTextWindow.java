@@ -1,14 +1,18 @@
 package View.InternalWindows;
 
-import java.awt.BorderLayout;
-import java.awt.event.*;
-import java.io.*;
 import java.rmi.NotBoundException;
-import javax.swing.*;
+import java.awt.BorderLayout;
 import javax.swing.event.*;
-
+import java.awt.event.*;
+import javax.swing.*;
 import Model.Model;
+import java.io.*;
 
+/**
+ * Shows a text field in the frame with the file loaded
+ * 
+ * @author Alen Kalac
+ */
 @SuppressWarnings("serial")
 public class PlainTextWindow extends JInternalFrame {
 
@@ -18,6 +22,16 @@ public class PlainTextWindow extends JInternalFrame {
 	private File f;
 	private String title;
 
+	/**
+	 * Constructor for the class
+	 * 
+	 * @param String
+	 *            title
+	 * @param String
+	 *            path
+	 * @param File
+	 *            f
+	 */
 	public PlainTextWindow(String title, String path, File f) {
 		super(title, true, true, true, true);
 		this.path = path;
@@ -42,6 +56,9 @@ public class PlainTextWindow extends JInternalFrame {
 		});
 	}
 
+	/**
+	 * Initialises components and variables
+	 */
 	private void init() {
 		this.setLayout(new BorderLayout());
 		jta = new JTextArea();
@@ -56,7 +73,7 @@ public class PlainTextWindow extends JInternalFrame {
 				saveFile();
 			}
 		});
-		
+
 		JScrollPane jsp = new JScrollPane(jta);
 
 		jtb.setFloatable(false);
@@ -69,6 +86,9 @@ public class PlainTextWindow extends JInternalFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * reads the file from the temp storage
+	 */
 	private void readFile() {
 		try {
 			FileReader reader = new FileReader(this.f);
@@ -78,6 +98,9 @@ public class PlainTextWindow extends JInternalFrame {
 		}
 	}
 
+	/**
+	 * Saves the file back into the cloud
+	 */
 	public void saveFile() {
 		BufferedWriter br;
 		try {

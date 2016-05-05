@@ -1,10 +1,12 @@
 package View;
 
 import javax.swing.*;
-
 import Controller.Controller;
 import Controller.Events.*;
 
+/**
+ * @author Alen Kalac
+ */
 @SuppressWarnings("serial")
 public class RightClickMenu extends JPopupMenu{
 	private JMenuItem deleteFile;
@@ -18,6 +20,11 @@ public class RightClickMenu extends JPopupMenu{
 	private Controller c;
 	private String path;
 	
+	/**
+	 * Default Constructor
+	 * @param Controller c
+	 * @param String fullPath
+	 */
 	public RightClickMenu(Controller c, String fullPath) {
 		super();
 		this.c = c;

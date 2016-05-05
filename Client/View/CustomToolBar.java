@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 
+/**
+ * @author Alen Kalac
+ */
 @SuppressWarnings("serial")
 public class CustomToolBar extends JToolBar implements Runnable{
 	
@@ -13,6 +16,9 @@ public class CustomToolBar extends JToolBar implements Runnable{
 	private JButton uploadFile;
 	private JLabel time;
 	
+	/**
+	 * Default Constructor
+	 */
 	public CustomToolBar() {
 		
 		this.newFile = new JButton("New File");
@@ -61,6 +67,9 @@ public class CustomToolBar extends JToolBar implements Runnable{
 		this.uploadFile.addActionListener(event);
 	}
 
+	/**
+	 * A thread that runs to keep the clock updated
+	 */
 	@Override
 	public void run() {
 		while(true) {

@@ -1,24 +1,19 @@
 package View;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.ActionListener;
+
+import java.awt.*;
 import java.awt.event.MouseAdapter;
-import java.beans.PropertyVetoException;
 import java.net.MalformedURLException;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
-
+import javax.swing.tree.*;
 import java.rmi.*;
 import java.util.*;
-
 import javax.swing.*;
-
-import View.InternalWindows.PlainTextWindow;
 import fileio.FileObject;
 import utils.StringUtils;
 
+/**
+ * The View for the client side
+ * @author Alen Kalac
+ */
 @SuppressWarnings("serial")
 public class RMIClient extends JFrame {
 
@@ -119,8 +114,6 @@ public class RMIClient extends JFrame {
 		toolbar = new CustomToolBar();
 		buttonPanel.add(toolbar);
 		
-		
-		
 		rightPanel.add(buttonPanel, BorderLayout.NORTH);
 		
 		desktop = new CustomDesktop();
@@ -150,6 +143,12 @@ public class RMIClient extends JFrame {
 		this.jt.addMouseListener(event);
 	}
 	
+	/**
+	 * Returns a custom toolbar instance
+	 * 
+	 * @return CustomToolBar
+	 * 			JToolBar that's on the side of the window
+	 */
 	public CustomToolBar getToolbar() {
 		return this.toolbar;
 	}
@@ -181,6 +180,11 @@ public class RMIClient extends JFrame {
 		return path;
 	}
 	
+	/**
+	 * Adds a JInternalFrame to the virtual desktop
+	 * 
+	 * @param Component window
+	 */
 	public void addWindowToDesktop(Component window) {
 		this.desktop.add(window);
 	}
