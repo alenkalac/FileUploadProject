@@ -1,10 +1,13 @@
 package fileio;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+
+import java.rmi.*;
 import java.util.ArrayList;
 
+/**
+ * File Upload Class
+ * @author Alen Kalac
+ */
 public interface FileUpload extends Remote {
-	
 	public boolean sendFile(byte[] fileBytes, String filename, String path) throws RemoteException;
 	public ArrayList<FileObject> getFileList() throws RemoteException;
 	public boolean createDirectory(String name, String path) throws RemoteException;

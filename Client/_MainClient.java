@@ -1,13 +1,19 @@
 import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-
+import java.rmi.*;
 import Controller.Controller;
 import Model.Model;
 import View.RMIClient;
 
+/**
+ * Main Entry Class for a client
+ * @author Alen Kalac
+ */
 public class _MainClient {
 
+	/**
+	 * Main entry point
+	 * @param args
+	 */
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
@@ -16,11 +22,7 @@ public class _MainClient {
 			
 			Controller controller = new Controller(client, model);
 			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (NotBoundException e) {
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		}
 	}
